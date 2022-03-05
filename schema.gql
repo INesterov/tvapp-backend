@@ -1,0 +1,22 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+"""program"""
+type Program {
+  category: String!
+  country: String!
+  description: String!
+  photo: String!
+  title: String!
+  type: String!
+  year: String!
+  day: String!
+  from: String!
+  to: String!
+  channel_id: String!
+}
+
+type Query {
+  programs: [Program!]!
+}

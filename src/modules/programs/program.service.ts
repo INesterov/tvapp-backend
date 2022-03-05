@@ -14,4 +14,10 @@ export class ProgramService {
     const createdProgram = new this.programModel(createProgramDto);
     return createdProgram.save();
   }
+
+  async findAll(): Promise<ProgramDocument[]> {
+    const programsList = await this.programModel.find({});
+
+    return programsList;
+  }
 }
