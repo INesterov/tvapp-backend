@@ -20,4 +20,10 @@ export class ChannelsService {
     const createdChannel = new this.channelModel(createChannelDto);
     return createdChannel.save();
   }
+
+  async findAll(): Promise<Channel[]> {
+    const channels = await this.channelModel.find({});
+
+    return channels;
+  }
 }

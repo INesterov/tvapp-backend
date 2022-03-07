@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
-import { Field, ObjectType } from '@nestjs/graphql';
+import { Field, ObjectType, InputType } from '@nestjs/graphql';
 
 export type ProgramDocument = Program & Document;
 
@@ -8,7 +8,7 @@ export type ProgramDocument = Program & Document;
 @ObjectType({ description: 'program' })
 export class Program {
   @Prop()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   category: string;
 
   @Prop()
@@ -28,7 +28,7 @@ export class Program {
   title: string;
 
   @Prop()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   type: string;
 
   @Prop()

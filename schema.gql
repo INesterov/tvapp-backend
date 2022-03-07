@@ -2,14 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+"""channel"""
+type Channel {
+  id: ID!
+  title: String!
+}
+
 """program"""
 type Program {
-  category: String!
+  category: String
   country: String!
   description: String!
   photo: String!
   title: String!
-  type: String!
+  type: String
   year: String!
   day: String!
   from: String!
@@ -18,5 +24,7 @@ type Program {
 }
 
 type Query {
-  programs: [Program!]!
+  channels: [Channel!]!
+  programs(day: String!, channel_id: [String!], type: [String!]): [Program!]!
+  types: [String!]
 }
