@@ -7,6 +7,7 @@ export type ProgramDocument = Program & Document;
 @Schema()
 @ObjectType({ description: 'program' })
 export class Program {
+  @Field(() => String)
   _id: MongooseSchema.Types.ObjectId;
 
   @Prop()
