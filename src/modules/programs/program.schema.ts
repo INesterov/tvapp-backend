@@ -1,5 +1,5 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { Document } from 'mongoose';
+import { Document, Schema as MongooseSchema } from 'mongoose';
 import { Field, ObjectType, InputType } from '@nestjs/graphql';
 
 export type ProgramDocument = Program & Document;
@@ -7,6 +7,8 @@ export type ProgramDocument = Program & Document;
 @Schema()
 @ObjectType({ description: 'program' })
 export class Program {
+  _id: MongooseSchema.Types.ObjectId;
+
   @Prop()
   @Field(() => String, { nullable: true })
   category: string;
