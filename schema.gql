@@ -10,13 +10,14 @@ type Channel {
 
 """program"""
 type Program {
+  _id: String!
   category: String
-  country: String!
+  country: String
   description: String!
-  photo: String!
+  photo: String
   title: String!
   type: String
-  year: String!
+  year: String
   day: String!
   from: String!
   to: String!

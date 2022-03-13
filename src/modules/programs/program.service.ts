@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { addDays, fromUnixTime } from 'date-fns';
 import { Model } from 'mongoose';
 import { Program, ProgramDocument } from './program.schema';
 import { CreateProgramDto } from './dto/create-program';
@@ -29,8 +30,12 @@ export class ProgramService {
   }
 
   async findAll(programFilters?: ProgramFilters): Promise<ProgramDocument[]> {
+    const nextDay = addDays(fromUnixTime(Number(programFilters.day)), 1);
     const filters = {
-      day: programFilters.day,
+      from: {
+        $gt: programFilters.day,
+        $lt: nextDay,
+      },
     };
 
     if (programFilters.channel_id.length >= 1) {
@@ -41,7 +46,9 @@ export class ProgramService {
       filters['type'] = { $in: programFilters.type };
     }
 
-    const programsList = await this.programModel.find(filters);
+    const programsList = await this.programModel
+      .find(filters)
+      .sort([['from', 1]]);
 
     return programsList;
   }
