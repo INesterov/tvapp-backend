@@ -12,7 +12,7 @@ export class Program {
   category: string;
 
   @Prop()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   country: string;
 
   @Prop()
@@ -20,7 +20,7 @@ export class Program {
   description: string;
 
   @Prop()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   photo: string;
 
   @Prop()
@@ -32,7 +32,7 @@ export class Program {
   type: string;
 
   @Prop()
-  @Field(() => String)
+  @Field(() => String, { nullable: true })
   year: string;
 
   @Prop()
