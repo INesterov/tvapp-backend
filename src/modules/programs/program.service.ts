@@ -52,4 +52,10 @@ export class ProgramService {
 
     return programsList;
   }
+
+  async findById(id: string): Promise<Program> {
+    const program = await this.programModel.findById(id);
+
+    return program;
+  }
 }

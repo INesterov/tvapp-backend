@@ -22,4 +22,9 @@ export class ProgramsResolver {
   types(): Promise<string[]> {
     return this.programsService.getTypes();
   }
+
+  @Query(() => Program)
+  program(@Args('id', { type: () => String }) id: string): Promise<Program> {
+    return this.programsService.findById(id);
+  }
 }

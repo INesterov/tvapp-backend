@@ -28,4 +28,5 @@ type Query {
   channels: [Channel!]!
   programs(day: String!, channel_id: [String!], type: [String!]): [Program!]!
   types: [String!]
+  program(id: String!): Program!
 }
