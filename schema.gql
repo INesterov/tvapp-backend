@@ -30,3 +30,7 @@ type Query {
   types: [String!]
   program(id: String!): Program!
 }
+
+type Mutation {
+  updatePrograms: String!
+}

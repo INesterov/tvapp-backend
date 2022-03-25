@@ -1,7 +1,7 @@
-import { Query, Resolver, Args } from '@nestjs/graphql';
+import { Query, Resolver, Args, Mutation } from '@nestjs/graphql';
 import { Program } from './program.schema';
 import { ProgramService } from './program.service';
-import { ProgramFilters } from './dto/program-filters';
+import { Messages, MessageType } from './dto/messages';
 
 @Resolver(() => Program)
 export class ProgramsResolver {
@@ -26,5 +26,12 @@ export class ProgramsResolver {
   @Query(() => Program)
   program(@Args('id', { type: () => String }) id: string): Promise<Program> {
     return this.programsService.findById(id);
+  }
+
+  @Mutation(() => String)
+  updatePrograms(): string {
+    this.programsService.updatePrograms();
+
+    return Messages.UPDATED;
   }
 }

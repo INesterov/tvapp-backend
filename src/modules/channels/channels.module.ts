@@ -7,8 +7,9 @@ import { ChannelsResolver } from './channels.resolvers';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Channel.name, schema: ChannelSchema }]),
+    Channel,
   ],
   providers: [ChannelsResolver, ChannelsService],
-  exports: [ChannelsService],
+  exports: [ChannelsService, Channel],
 })
 export class ChannelsModule {}

@@ -1,7 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { addDays, fromUnixTime } from 'date-fns';
+import axios from 'axios';
 import { Model } from 'mongoose';
+import { getUnixTime, startOfWeek, addHours } from 'date-fns';
 import { Program, ProgramDocument } from './program.schema';
 import { CreateProgramDto } from './dto/create-program';
 import { ProgramFilters } from './dto/program-filters';
@@ -57,5 +59,39 @@ export class ProgramService {
     const program = await this.programModel.findById(id);
 
     return program;
+  }
+
+  async updatePrograms(): Promise<void> {
+    const currentWeek = getUnixTime(addHours(startOfWeek(new Date()), 23));
+    const startDay = addHours(startOfWeek(new Date()), 23);
+
+    await this.clear(currentWeek);
+
+    for (let i = 0; i <= 6; i++) {
+      const day = getUnixTime(addDays(startDay, i));
+      const { data } = await axios.get(
+        `http://tvget.ru/tvgate/mv/zh9d3x6v/tv_ajax.php?action=tvsched&day=${i}&channel=cen&week=${currentWeek}&date_day=${day}`,
+      );
+
+      data.data.forEach(async (channel) => {
+        const channelId = channel.channel_id;
+
+        channel.tvsched.forEach(async (programm) => {
+          await this.create({
+            category: programm.attr_category,
+            country: programm.attr_country,
+            description: programm.attr_desc,
+            photo: programm.attr_photo,
+            title: programm.attr_title,
+            type: programm.attr_type,
+            year: programm.attr_year,
+            day: programm.date_day,
+            from: programm.date_from,
+            to: programm.date_to,
+            channel_id: channelId,
+          });
+        });
+      });
+    }
   }
 }
